@@ -13,16 +13,16 @@ export function AuthenticatedContent() {
       <Routes>
         <Route path="/*" element={<DashboardContainer />}></Route>
         <Route
+          path="/planets"
+          element={<div className="text-xl font-bold">Planets</div>}
+        ></Route>
+        <Route
           path="/config/the-moon"
           element={<div className="text-xl font-bold">The Moon</div>}
         ></Route>
         <Route
           path="/config/humans"
           element={<div className="text-xl font-bold">Humans</div>}
-        ></Route>
-        <Route
-          path="/config/solar-system"
-          element={<div className="text-xl font-bold">The Solar System</div>}
         ></Route>
       </Routes>
     </div>

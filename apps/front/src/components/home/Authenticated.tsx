@@ -87,13 +87,13 @@ export function Authenticated() {
               <summary>Configuration</summary>
               <ul onClick={closeDrawer}>
                 <li>
+                  <Link to="/planets">Planets</Link>
+                </li>
+                <li>
                   <Link to="/config/the-moon">The Moon</Link>
                 </li>
                 <li>
                   <Link to="/config/humans">Humans</Link>
-                </li>
-                <li>
-                  <Link to="/config/solar-system">Solar System</Link>
                 </li>
               </ul>
             </details>

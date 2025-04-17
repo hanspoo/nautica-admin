@@ -19,3 +19,17 @@ model BookDAO {
   @@unique([title, author])
   @@map("book")
 }
+
+model PlanetDAO {
+  id String @id @default(uuid())
+
+  name        String
+  diameter    Int
+  description String
+
+  createdAt  DateTime  @default(now()) @db.Timestamptz(6)
+  modifiedAt DateTime? @db.Timestamptz(6)
+
+  @@unique([name, description])
+  @@map("planet")
+}

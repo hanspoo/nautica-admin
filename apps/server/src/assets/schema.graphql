@@ -2,6 +2,17 @@ type Book {
   title: String
   author: String
 }
+
+type Planet {
+  name: String!
+  diameter: Int!
+  description: String!
+}
 type Query {
   books: [Book]
+  planets: [Planet]
+}
+
+type Mutation {
+  createPlanet(name: String!, diameter: Int!, description: String!): Planet!
 }

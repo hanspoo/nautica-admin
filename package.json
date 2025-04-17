@@ -4,6 +4,9 @@
   "license": "MIT",
   "scripts": {
     "generate": "nx prisma-generate lib-prisma",
+    "start:server": "nx serve server",
+    "start:front": "nx serve front",
+    "push": "nx prisma-push lib-prisma",
     "codegen": "graphql-codegen --config libs/lib-graphql/codegen.ts"
   },
   "private": true,
@@ -26,6 +29,8 @@
     "react-router-dom": "^6.29.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@eslint/js": "^9.8.0",
     "@graphql-codegen/cli": "^5.0.5",
     "@graphql-codegen/client-preset": "^4.8.0",
