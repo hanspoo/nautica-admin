@@ -38,6 +38,7 @@ export type Planet = {
   __typename?: 'Planet';
   description: Scalars['String']['output'];
   diameter: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
 
@@ -151,6 +152,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type PlanetResolvers<ContextType = any, ParentType extends ResolversParentTypes['Planet'] = ResolversParentTypes['Planet']> = {
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   diameter?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

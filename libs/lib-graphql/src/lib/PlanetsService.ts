@@ -16,7 +16,7 @@ export class PlanetsService {
       },
     });
 
-    return planetDTOToGraphql(planet);
+    return toGraphql(planet);
   }
   static async findById(id: string) {
     const planet = await prisma.planetDAO.findFirst({
@@ -27,17 +27,18 @@ export class PlanetsService {
 
     if (planet == null) throw Error(`Planet ${id} not found`);
 
-    return planetDTOToGraphql(planet);
+    return toGraphql(planet);
   }
 
   static async findAll() {
     const all = await prisma.planetDAO.findMany();
-    return all.map((b) => planetDTOToGraphql(b as any));
+    return all.map((b) => toGraphql(b as any));
   }
 }
 
-function planetDTOToGraphql(planet: PlanetDAO) {
+function toGraphql(planet: PlanetDAO) {
   const b: Planet = {
+    id: planet.id,
     name: planet.name,
     diameter: planet.diameter,
     description: planet.description,
