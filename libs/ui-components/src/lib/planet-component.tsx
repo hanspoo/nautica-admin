@@ -6,11 +6,13 @@ export function PlanetComponent({
   planet: Planet;
 }) {
   return (
-    <div className="card card-border w-96">
+    <div className="card card-border w-96 mb-2">
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
-        <p>{diameter} km2</p>
-        <p>{description}</p>
+        <p className="mb-2">{description}</p>
+        <p>
+          {diameter} km<sup>2</sup>
+        </p>
       </div>
     </div>
   );
