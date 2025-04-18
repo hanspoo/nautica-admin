@@ -28,11 +28,29 @@ async function partida() {
   });
   await server.start();
 
+  app.use('/', (req, res, next) => {
+    const authorization = req.headers['authorization'];
+    if (authorization) {
+      const [, token] = authorization.trim().split(/ /);
+      req.headers['token'] = token;
+    }
+
+    next();
+  });
+
+  const authenticated = (req, res, next) => {
+    if (req.headers['token']) return next();
+
+    console.log('inválid access');
+    return res.status(400).send();
+  };
+
   app.get('/api/hello', (req, res) => {
     res.send('Hello API');
   });
   app.use(
     '/graphql',
+    authenticated,
     cors<cors.CorsRequest>(),
     express.json(),
     expressMiddleware(server, {

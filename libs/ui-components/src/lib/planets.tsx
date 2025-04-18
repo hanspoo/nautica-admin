@@ -27,7 +27,7 @@ export function Planets() {
     <div>
       <p className="mb-2">there are {data.planets.length} planets</p>
       {data.planets.map((p) => (
-        <PlanetComponent planet={p} />
+        <PlanetComponent planet={p} key={p.id} />
       ))}
     </div>
   );
