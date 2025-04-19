@@ -1,6 +1,6 @@
 # NxOidcStarter
 
-A modern starter for your full stack app: just start putting the code you are paid for.
+A minimal modern starter for your new full stack app: start putting the code you are paid for.
 
 Stack
 
