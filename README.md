@@ -51,3 +51,7 @@ run the docker compose and
 
 `nx serve front`
 `nx serve server`
+
+Credentials:
+
+`user alice password alice`
