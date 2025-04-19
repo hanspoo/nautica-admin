@@ -1,5 +1,17 @@
 version: '3'
 services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=earth
+    volumes:
+      - ./dataset-earth:/docker-entrypoint-initdb.d
+    ports:
+      - 5434:5432
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.3
     command: ['start-dev', '--import-realm']
