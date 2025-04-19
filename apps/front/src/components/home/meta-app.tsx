@@ -2,7 +2,6 @@ import { AuthProvider } from 'react-oidc-context';
 
 import { App } from './app';
 import { Centered } from './Centered';
-import { ApolloProvider } from '@apollo/client';
 import { ApolloWrapper } from '../../ApolloWrapper';
 
 const base =

@@ -13,9 +13,11 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@nx-oidc-starter/api": ["libs/api/src/index.ts"],
+      "@nx-oidc-starter/auth": ["libs/auth/src/index.ts"],
       "@nx-oidc-starter/lib-graphql": ["libs/lib-graphql/src/index.ts"],
       "@nx-oidc-starter/lib-prisma": ["libs/lib-prisma/src/index.ts"],
       "@nx-oidc-starter/ui-components": ["libs/ui-components/src/index.ts"]
