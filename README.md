@@ -8,11 +8,14 @@ Stack
 - react
 - express
 - graphql
+- apollo client and server
 - prisma
 - tailwind & daisyui
 - react-oidc-context
 - keycloak
 - postgresql
+
+Grapqhl and REST ready.
 
 ## Quick start
 
