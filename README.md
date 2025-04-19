@@ -42,7 +42,7 @@ docker compose up
 
 Install nx globally
 
-npm i -g nx@latest
+`npm i -g nx@latest`
 
 run the docker compose and
 
