@@ -1,6 +1,6 @@
 # NxOidcStarter
 
-A modern classical project to just start putting the code you are paid for.
+A modern starter for your full stack app: just start putting the code you are paid for.
 
 Stack
 
