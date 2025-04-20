@@ -7,6 +7,7 @@ declare global {
       OIDC_ISSUER: string;
       JWKS_SUFFIX: string;
       DEBUG: string;
+      AUDIENCE: string;
     }
   }
 }

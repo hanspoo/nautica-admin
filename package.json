@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "generate": "nx prisma-generate lib-prisma",
+    "start:zitadel": "cat .env.sample.zitadel > .env; cd docker-dev-zitadel; docker compose up",
+    "start:keycloak": "cat .env.sample.keycloak > .env; cd docker-dev-keycloak; docker compose up",
     "start:server": "nx serve server",
     "start:front": "nx serve front",
     "push": "nx prisma-push lib-prisma",

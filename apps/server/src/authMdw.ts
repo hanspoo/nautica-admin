@@ -21,7 +21,11 @@ export const authMdw = async (
       if (process.env.DEBUG)
         console.log('Token validated ' + JSON.stringify(validatorResponse));
 
-      if (validatorResponse && validatorResponse.email) {
+      if (
+        validatorResponse &&
+        (validatorResponse.email ||
+          validatorResponse['client_id'] === process.env.VITE_CLIENT_ID)
+      ) {
         next();
       }
     } catch (error) {

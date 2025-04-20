@@ -31,10 +31,11 @@ export class JWTValidator {
   validateToken(token: string) {
     return new Promise((resolve: (x: ValidatorResponse) => void, reject) => {
       const args: any = {
-        audience: 'account',
+        audience: process.env.AUDIENCE,
         issuer: this.issuer,
         algorithms: ['RS256'],
       };
+      console.log({ args });
       jwt.verify(token, this.getKey, args, (err: any, decoded: any) => {
         if (err) return reject(err);
         resolve(decoded);
