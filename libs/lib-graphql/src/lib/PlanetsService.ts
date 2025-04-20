@@ -31,8 +31,14 @@ export class PlanetsService {
   }
 
   static async findAll() {
+    if (process.env.DEBUG) console.log('find all starting');
+
     const all = await prisma.planetDAO.findMany();
-    return all.map((b) => toGraphql(b as any));
+    const list = all.map((b) => toGraphql(b as any));
+
+    if (process.env.DEBUG) console.log('find all ending');
+
+    return list;
   }
 }
 

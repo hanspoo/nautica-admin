@@ -5,6 +5,8 @@ declare global {
       VITE_CLIENT_ID: string;
       VITE_AUTHORITY: string;
       OIDC_ISSUER: string;
+      JWKS_SUFFIX: string;
+      DEBUG: string;
     }
   }
 }

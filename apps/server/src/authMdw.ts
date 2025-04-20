@@ -15,10 +15,13 @@ export const authMdw = async (
   const token = readAccessTokenFromRequest(req);
   if (token) {
     try {
-      const res = await new JWTValidator(
+      const validatorResponse = await new JWTValidator(
         process.env.VITE_AUTHORITY
       ).validateToken(token);
-      if (res && res.email) {
+      if (process.env.DEBUG)
+        console.log('Token validated ' + JSON.stringify(validatorResponse));
+
+      if (validatorResponse && validatorResponse.email) {
         next();
       }
     } catch (error) {

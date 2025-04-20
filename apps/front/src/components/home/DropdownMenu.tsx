@@ -2,6 +2,7 @@ import { useAuth } from 'react-oidc-context';
 
 export function DropdownMenu() {
   const auth = useAuth();
+  console.log({ auth });
   const email = auth.user?.profile.email || 'invalid@user.org';
 
   return (

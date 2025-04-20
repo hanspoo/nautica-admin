@@ -36,7 +36,13 @@ npm run start:front
 
 Use credentials:
 
-`user alice password alice`
+With keycloak
+
+`user alice, password alice`
+
+With zitadel
+
+`user: alice@zitadel.org, password: Password2!`
 
 finally, start keycloak and postgres in a docker compose
 

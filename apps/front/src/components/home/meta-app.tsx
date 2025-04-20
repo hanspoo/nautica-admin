@@ -6,10 +6,10 @@ import { ApolloWrapper } from '../../ApolloWrapper';
 
 const base =
   window.location.protocol +
-    '//' +
-    window.location.host +
-    '/' +
-    import.meta.env.VITE_HTTP_PREFIX || '';
+  '//' +
+  window.location.host +
+  '/' +
+  (import.meta.env.VITE_HTTP_PREFIX || '');
 
 const newURL =
   window.location.protocol +
