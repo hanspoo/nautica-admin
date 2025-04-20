@@ -6,10 +6,10 @@ import { ApolloWrapper } from '../../ApolloWrapper';
 
 const base =
   window.location.protocol +
-  '//' +
-  window.location.host +
-  '/' +
-  import.meta.env.VITE_HTTP_PREFIX;
+    '//' +
+    window.location.host +
+    '/' +
+    import.meta.env.VITE_HTTP_PREFIX || '';
 
 const newURL =
   window.location.protocol +
@@ -35,7 +35,7 @@ export function MetaApp() {
     post_logout_redirect_uri: base,
   };
 
-  console.log({ oidcConfig });
+  console.log(JSON.stringify(oidcConfig));
 
   return (
     <AuthProvider {...oidcConfig}>

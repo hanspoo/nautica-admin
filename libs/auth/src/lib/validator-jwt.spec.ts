@@ -47,7 +47,7 @@ const sample = {
   aud: 'account',
   sub: '49fa1fe5-8eb3-46d1-9a6d-f85aad7f536b',
   typ: 'Bearer',
-  azp: 'react-client',
+  azp: 'earth',
   session_state: '519e4cf0-2d5c-4280-897f-df22d1bf4336',
   acr: '0',
   'allowed-origins': ['*'],
