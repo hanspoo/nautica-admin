@@ -34,6 +34,10 @@ in other terminal
 npm run start:front
 ```
 
+Use credentials:
+
+`user alice password alice`
+
 finally, start keycloak and postgres in a docker compose
 
 ```
@@ -51,7 +55,3 @@ run the docker compose and
 
 `nx serve front`
 `nx serve server`
-
-Credentials:
-
-`user alice password alice`
