@@ -10,10 +10,10 @@ Stack
 - react
 - express
 - graphql
-- apollo client and server
 - prisma
-- tailwind & daisyui
 - react-oidc-context
+- tailwind & daisyui
+- apollo client and server
 - keycloak || zitadel
 - postgresql
 
