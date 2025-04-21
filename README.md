@@ -14,7 +14,7 @@ Stack
 - prisma
 - tailwind & daisyui
 - react-oidc-context
-- keycloak
+- keycloak || zitadel
 - postgresql
 
 Grapqhl and REST ready.
