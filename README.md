@@ -52,10 +52,10 @@ With zitadel
 
 `user: alice, password: Password2!`
 
-finally, start keycloak and postgres in a docker compose
+finally, start the identity broker (keycloak in this case) and postgres from a docker compose:
 
 ```
-cd docker-dev/
+cd docker-dev-keycloak
 docker compose up
 ```
 
