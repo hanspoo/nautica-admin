@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.22 (Ubuntu 12.22-0ubuntu0.20.04.2)
--- Dumped by pg_dump version 12.22 (Ubuntu 12.22-0ubuntu0.20.04.2)
+-- Dumped from database version 16.8 (Debian 16.8-1.pgdg120+1)
+-- Dumped by pg_dump version 16.8 (Debian 16.8-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: book; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.book (
@@ -33,10 +33,8 @@ CREATE TABLE public.book (
 );
 
 
-ALTER TABLE public.book OWNER TO postgres;
-
 --
--- Name: planet; Type: TABLE; Schema: public; Owner: postgres
+-- Name: planet; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.planet (
@@ -49,10 +47,8 @@ CREATE TABLE public.planet (
 );
 
 
-ALTER TABLE public.planet OWNER TO postgres;
-
 --
--- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.book (id, title, author, "createdAt", "modifiedAt") FROM stdin;
@@ -60,18 +56,18 @@ COPY public.book (id, title, author, "createdAt", "modifiedAt") FROM stdin;
 
 
 --
--- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: planet; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.planet (id, name, diameter, description, "createdAt", "modifiedAt") FROM stdin;
-a2a2c58e-8c19-4288-8949-d3e7e5d7de8e	Mars	6779	The red planet	2025-04-17 09:22:45.748-04	\N
-c87d56ce-1286-4a05-bc28-47d84779f609	Venus	12104	The planet of love	2025-04-17 09:28:55.139-04	\N
-07a0f817-bee2-45ff-82ca-5a8141c99440	Earth	12756	Best planet	2025-04-17 08:38:24.783-04	\N
+a2a2c58e-8c19-4288-8949-d3e7e5d7de8e	Mars	6779	The red planet	2025-04-17 13:22:45.748+00	\N
+c87d56ce-1286-4a05-bc28-47d84779f609	Venus	12104	The planet of love	2025-04-17 13:28:55.139+00	\N
+07a0f817-bee2-45ff-82ca-5a8141c99440	Earth	12756	Best planet	2025-04-17 12:38:24.783+00	\N
 \.
 
 
 --
--- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.book
@@ -79,7 +75,7 @@ ALTER TABLE ONLY public.book
 
 
 --
--- Name: planet planet_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: planet planet_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.planet
@@ -87,14 +83,14 @@ ALTER TABLE ONLY public.planet
 
 
 --
--- Name: book_title_author_key; Type: INDEX; Schema: public; Owner: postgres
+-- Name: book_title_author_key; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX book_title_author_key ON public.book USING btree (title, author);
 
 
 --
--- Name: planet_name_description_key; Type: INDEX; Schema: public; Owner: postgres
+-- Name: planet_name_description_key; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX planet_name_description_key ON public.planet USING btree (name, description);
