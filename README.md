@@ -144,5 +144,3 @@ The standard. We're using Keycloak and Zitadel—both open source, both awesome.
 That’s the starting point. From here, it's your playground. Add features, swap tools, build your own flavor of full stack.
 
 Let’s roll. 🚀
-
-Want it even more chill or meme-ish? I got you. Just say the word.
