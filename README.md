@@ -1,6 +1,6 @@
 # Full Stack Framework From Scratch
 
-This is a project about going back to basics—with style. We’re building a super minimal, totally agnostic full stack setup, with the freedom to evolve it however we want. The only rule? Use cool tech and free software. Always.
+This is a project about going back to basics—with style. We’re building a super minimal full stack setup, with the freedom to evolve it however we want. The only rule? Use cool tech and free software. Always.
 
 A minimal modern starter for your new full stack app: start putting the code you are paid for.
 
