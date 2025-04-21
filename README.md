@@ -1,4 +1,4 @@
-# Not a Framework
+# NX OIDC Starter
 
 This is a project about going back to basics—with style. We’re building a super minimal full stack setup, with the freedom to evolve it however we want. The only rule? Use cool tech and free software. Always.
 
