@@ -4,7 +4,21 @@ This is a project about going back to basics—with style. We’re building a su
 
 A minimal modern starter for your new full stack app: start putting the code you are paid for.
 
-Stack
+## So what do we really need?
+
+Let’s keep it simple. A modern full stack setup usually boils down to:
+
+- The Browser  
+   Where your frontend lives and runs.
+- The Server  
+   Mostly just sending JSON and talking to a database.
+- The Auth Broker  
+   Handles user logins using OIDC (OpenID Connect).
+
+That’s the core—we build everything else on top.
+
+
+## Stack
 
 - nx
 - react
@@ -96,18 +110,6 @@ Sure, it might. But you didn’t build it. And until you understand it, it’s j
 
 We’re here to break that magic down and put it back together, piece by piece.
 
-## So what do we really need?
-
-Let’s keep it simple. A modern full stack setup usually boils down to:
-
-- The Browser  
-   Where your frontend lives and runs.
-- The Server  
-   Mostly just sending JSON and talking to a database.
-- The Auth Broker  
-   Handles user logins using OIDC (OpenID Connect).
-
-That’s the core—we build everything else on top.
 
 ## Our Tech Stack
 
