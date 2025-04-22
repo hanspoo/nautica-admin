@@ -129,11 +129,11 @@ Good ol’ React, styled with Tailwind for utility-first CSS, and DaisyUI for pr
 
 Express is simple and proven. Prisma gives us a modern, type-safe ORM. Together, they make backend dev way less painful.
 
-### 🔁 Front ↔ Back: REST + GraphQL
+### 🔁 Front ↔ Back: REST or GraphQL
 
 Why choose? We’re doing both. REST for the classics, GraphQL when we need flexibility.
 
-### 🔐 Auth: OpenID Connect
+### 🔐 Auth: OpenID Connect, KTP_CORP_BFAL_CL_SOLICITUDES_CREDITMNGT_PRODUCTTP_CORP_BFAL_CL_SOLICITUDES_CREDITMNGT_PRODUCTeycloak or Zitadel
 
 The standard. We're using Keycloak and Zitadel—both open source, both awesome.
 
