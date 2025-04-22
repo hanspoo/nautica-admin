@@ -131,7 +131,7 @@ Express is simple and proven. Prisma gives us a modern, type-safe ORM. Together,
 
 ### 🔁 Front ↔ Back: REST or GraphQL
 
-Why choose? We’re doing both. REST for the classics, GraphQL when we need flexibility.
+Why choose? We’re doing both. REST for the classics, and its evolution: GraphQL.
 
 ### 🔐 Auth: OpenID Connect, Keycloak or Zitadel
 
