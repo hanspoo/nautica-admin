@@ -17,7 +17,6 @@ Let’s keep it simple. A modern full stack setup usually boils down to:
 
 That’s the core—we build everything else on top.
 
-
 ## Stack
 
 - nx
@@ -34,6 +33,8 @@ That’s the core—we build everything else on top.
 Grapqhl and REST ready.
 
 ## Quick start
+
+[view youtube video - in spanish](https://youtu.be/d9CUBPas-qk)
 
 ```
 git clone https://github.com/hanspoo/nx-oidc-starter
@@ -109,7 +110,6 @@ That kind of thinking kills creativity. Our brains want to think—it’s what t
 Sure, it might. But you didn’t build it. And until you understand it, it’s just magic.
 
 We’re here to break that magic down and put it back together, piece by piece.
-
 
 ## Our Tech Stack
 
