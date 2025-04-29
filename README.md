@@ -4,6 +4,8 @@ This is a project about going back to basics—with style. We’re building a su
 
 A minimal modern starter for your new full stack app: start putting the code you are paid for.
 
+[view youtube video - in spanish](https://youtu.be/d9CUBPas-qk)
+
 ## So what do we really need?
 
 Let’s keep it simple. A modern full stack setup usually boils down to:
@@ -33,8 +35,6 @@ That’s the core—we build everything else on top.
 Grapqhl and REST ready.
 
 ## Quick start
-
-[view youtube video - in spanish](https://youtu.be/d9CUBPas-qk)
 
 ```
 git clone https://github.com/hanspoo/nx-oidc-starter
