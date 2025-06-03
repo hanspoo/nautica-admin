@@ -8,16 +8,14 @@ import jwt from 'jsonwebtoken';
 // VITE_AUTHORITY format: 'https://<your-keycloak-domain>/realms/<your-realm>';
 //
 
+const client = jwksClient({
+	jwksUri: `${process.env.VITE_AUTHORITY}/${process.env.JWKS_SUFFIX}`,
+});
+
 export class JWTValidator {
   constructor(public issuer: string) {}
 
   getKey = async (header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) => {
-    console.log({
-      jwksUri: `${this.issuer}/${process.env.JWKS_SUFFIX}`,
-    });
-    const client = jwksClient({
-      jwksUri: `${this.issuer}/${process.env.JWKS_SUFFIX}`,
-    });
     client.getSigningKey(header.kid, (err: any, key: any) => {
       if (err) {
         return callback(err, undefined);
