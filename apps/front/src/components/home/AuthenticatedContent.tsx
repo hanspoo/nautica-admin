@@ -1,5 +1,10 @@
 import { useAuth } from 'react-oidc-context';
-import { Planets } from '@nx-oidc-starter/ui-components';
+import {
+  BoatEditForm,
+  Boats,
+  NewBoat,
+  Planets,
+} from '@nx-oidc-starter/ui-components';
 import { Routes, Route } from 'react-router-dom';
 import { PleaseLogin } from '../PleaseLogin';
 import { DashboardContainer } from './DashboardContainer';
@@ -18,6 +23,9 @@ export function AuthenticatedContent() {
           path="/config/the-moon"
           element={<div className="text-xl font-bold">The Moon</div>}
         ></Route>
+        <Route path="/boats/new" element={<NewBoat />}></Route>
+        <Route path="/boats/edit/:boatId" element={<BoatEditForm />}></Route>
+        <Route path="/boats" element={<Boats />}></Route>
         <Route
           path="/config/humans"
           element={<div className="text-xl font-bold">Humans</div>}

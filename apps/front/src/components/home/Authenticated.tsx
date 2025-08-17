@@ -95,6 +95,9 @@ export function Authenticated() {
                 <li>
                   <Link to="/config/humans">Humans</Link>
                 </li>
+                <li>
+                  <Link to="/boats">Boats</Link>
+                </li>
               </ul>
             </details>
           </li>

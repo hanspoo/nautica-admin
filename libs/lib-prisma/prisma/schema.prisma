@@ -1,35 +1,38 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model BookDAO {
-  id String @id @default(uuid())
-
-  title  String
-  author String
-
-  createdAt  DateTime  @default(now()) @db.Timestamptz(6)
-  modifiedAt DateTime? @db.Timestamptz(6)
-
-  @@unique([title, author])
-  @@map("book")
-}
-
-model PlanetDAO {
-  id String @id @default(uuid())
-
-  name        String
-  diameter    Int
-  description String
-
-  createdAt  DateTime  @default(now()) @db.Timestamptz(6)
-  modifiedAt DateTime? @db.Timestamptz(6)
-
-  @@unique([name, description])
-  @@map("planet")
+model Boat {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  imagen            String
+  detailImg1        String?
+  detailImg2        String?
+  detailImg3        String?
+  detailImg4        String?
+  detailImg5        String?
+  detailImg6        String?
+  tittle            String
+  value             String
+  duracion          String
+  personas          String
+  bedrooms          String
+  largo             String?
+  info              String
+  marca             String
+  materialCasco     String?
+  año              String
+  modeloMotor       String
+  Horas             String
+  Carga             String
+  pasajeros         String?
+  tipoDeCombustible String
+  horasDeUso        String
+  descripcion       String
+  caracteristicas   String[] // dynamic features list
 }

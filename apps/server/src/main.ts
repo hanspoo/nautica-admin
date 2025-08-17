@@ -1,52 +1,241 @@
-import { ApolloServer } from '@apollo/server';
-import fs from 'fs';
-import { expressMiddleware } from '@apollo/server/express4';
-import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import express from 'express';
-import http from 'http';
+import dotenv from 'dotenv';
+import express, { Request, Response } from 'express';
+import multer, { File as MulterFile } from 'multer';
 import cors from 'cors';
-import { gql } from '@apollo/client';
-import { resolvers } from '@nx-oidc-starter/lib-graphql';
-import { authMdw } from './authMdw';
+import { PrismaClient } from '@prisma/client';
+import path from 'path';
+import { cloneBoat, deleteBoat, getBoatById } from './services/boatService';
 
-interface MyContext {
-  token?: string;
-}
+dotenv.config();
 
 const app = express();
-const httpServer = http.createServer(app);
+const prisma = new PrismaClient();
 
-async function partida() {
-  const s = fs.readFileSync(__dirname + '/assets/schema.graphql');
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-  const typeDefs = gql(`${s}`);
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
 
-  const server = new ApolloServer<MyContext>({
-    typeDefs,
-    resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-  });
-  await server.start();
+app.use(express.static(process.env.IMAGES_DIR || '/static-images'));
 
-  app.get('/api/hello', (req, res) => {
-    res.send('Hello API, public access');
-  });
-  app.get('/api/protected', authMdw, (req, res) => {
-    res.send('This is protected');
-  });
-  app.use(
-    '/graphql',
-    authMdw,
-    cors<cors.CorsRequest>(),
-    express.json(),
-    expressMiddleware(server, {
-      context: async ({ req }) => ({ token: req.headers.token }),
-    })
-  );
+const target = process.env.UPLOAD_FOLDER || path.join(__dirname, '../uploads');
+// File upload setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, target),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+});
+const upload = multer({ storage });
 
-  const port = process.env.PORT || 3333;
-  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
-  console.log(`server started at port http://localhost:${port} `);
-}
+// Routes
+app.get('/api/boats', async (req, res) => {
+  const boats = await prisma.boat.findMany();
+  res.json(boats);
+});
 
-partida();
+app.post('/api/boats/:id/clone', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const clonedBoat = await cloneBoat(id);
+    res.status(201).json(clonedBoat);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message || 'Error cloning boat' });
+  }
+});
+
+app.delete('/api/boats/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await deleteBoat(id);
+    res.json({ message: `boat ${id} deleted` });
+  } catch (error: any) {
+    res
+      .status(400)
+      .json({ message: error.message || 'Error deleting ' + req.params.id });
+  }
+});
+
+app.get('/api/boats/:id', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const boat = await getBoatById(id);
+
+    if (!boat) {
+      return res.status(404).json({ message: 'Boat not found' });
+    }
+
+    res.json(boat);
+  } catch (error) {
+    console.error('Error in GET /boats/:id:', error);
+    res.status(500).json({ message: 'Server error fetching boat' });
+  }
+});
+
+app.post(
+  '/api/boats',
+  upload.fields([
+    { name: 'imagen', maxCount: 1 },
+    { name: 'detailImages', maxCount: 6 },
+  ]),
+  async (req: any, res) => {
+    try {
+      const {
+        tittle,
+        value,
+        duracion,
+        personas,
+        bedrooms,
+        largo,
+        info,
+        marca,
+        materialCasco,
+        año,
+        modeloMotor,
+        Horas,
+        Carga,
+        pasajeros,
+        tipoDeCombustible,
+        horasDeUso,
+        descripcion,
+        caracteristicas,
+      } = req.body;
+
+      const imagen =
+        req.files && 'imagen' in req.files
+          ? `/uploads/${(req.files['imagen'] as MulterFile[])[0].filename}`
+          : '';
+
+      const detailImages =
+        req.files && 'detailImages' in req.files
+          ? (req.files['detailImages'] as MulterFile[]).map(
+              (f) => `/uploads/${f.filename}`
+            )
+          : [];
+
+      const boat = await prisma.boat.create({
+        data: {
+          imagen,
+          detailImg1: detailImages[0] || null,
+          detailImg2: detailImages[1] || null,
+          detailImg3: detailImages[2] || null,
+          detailImg4: detailImages[3] || null,
+          detailImg5: detailImages[4] || null,
+          detailImg6: detailImages[5] || null,
+          tittle,
+          value,
+          duracion,
+          personas,
+          bedrooms,
+          largo,
+          info,
+          marca,
+          materialCasco,
+          año,
+          modeloMotor,
+          Horas,
+          Carga,
+          pasajeros,
+          tipoDeCombustible,
+          horasDeUso,
+          descripcion,
+          caracteristicas: JSON.parse(caracteristicas),
+        },
+      });
+
+      res.json(boat);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to create boat' });
+    }
+  }
+);
+
+app.put(
+  '/api/boats/:id',
+  upload.fields([
+    { name: 'imagen', maxCount: 1 },
+    { name: 'detailImages', maxCount: 6 },
+  ]),
+  async (req: any, res: any) => {
+    const { id } = req.params;
+    try {
+      const {
+        tittle,
+        value,
+        duracion,
+        personas,
+        bedrooms,
+        largo,
+        info,
+        marca,
+        materialCasco,
+        año,
+        modeloMotor,
+        Horas,
+        Carga,
+        pasajeros,
+        tipoDeCombustible,
+        horasDeUso,
+        descripcion,
+        caracteristicas,
+      } = req.body;
+
+      // Prepare images
+      const imagen =
+        req.files && 'imagen' in req.files
+          ? `/uploads/${(req.files['imagen'] as MulterFile[])[0].filename}`
+          : undefined;
+
+      const detailImages =
+        req.files && 'detailImages' in req.files
+          ? (req.files['detailImages'] as MulterFile[]).map(
+              (f) => `/uploads/${f.filename}`
+            )
+          : [];
+
+      // Update boat
+      const updatedBoat = await prisma.boat.update({
+        where: { id },
+        data: {
+          tittle,
+          value,
+          duracion,
+          personas,
+          bedrooms,
+          largo,
+          info,
+          marca,
+          materialCasco,
+          año,
+          modeloMotor,
+          Horas,
+          Carga,
+          pasajeros,
+          tipoDeCombustible,
+          horasDeUso,
+          descripcion,
+          caracteristicas: JSON.parse(caracteristicas),
+          ...(imagen && { imagen }),
+          ...(detailImages[0] && { detailImg1: detailImages[0] }),
+          ...(detailImages[1] && { detailImg2: detailImages[1] }),
+          ...(detailImages[2] && { detailImg3: detailImages[2] }),
+          ...(detailImages[3] && { detailImg4: detailImages[3] }),
+          ...(detailImages[4] && { detailImg5: detailImages[4] }),
+          ...(detailImages[5] && { detailImg6: detailImages[5] }),
+        },
+      });
+
+      res.json(updatedBoat);
+    } catch (error) {
+      console.error('Error updating boat:', error);
+      res.status(500).json({ error: 'Failed to update boat' });
+    }
+  }
+);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
