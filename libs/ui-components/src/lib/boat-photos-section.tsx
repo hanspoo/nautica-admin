@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 interface Boat {
@@ -34,33 +35,102 @@ export const BoatPhotosSection: React.FC<{
   setBoat: (boat: Boat) => void;
 }> = ({ boat, setBoat }) => {
   const [imagen, setImagen] = useState<File | null>(null);
-  const [detailImages, setDetailImages] = useState<File[]>([]);
+
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [randomData, setRandomData] = useState(new Date().getTime());
 
   if (loading) return <p>Cloning...</p>;
   if (error) return <p>{error}</p>;
 
+  const updateMainImage = (file?: File) => {
+    if (!file) {
+      return;
+    }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    axios
+      .post<Boat>(`/api/boats/${boat.id}/upload-main-image`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        // setBoat(response.data);
+        setRandomData(new Date().getTime());
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const uploadDetailImages = (n: number, file?: File) => {
+    if (!file) {
+      return;
+    }
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    axios
+      .post<Boat>(`/api/boats/${boat.id}/upload-detail-image/${n}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        // setBoat(response.data);
+        setRandomData(new Date().getTime());
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  if (loading) return <p>wait...</p>;
+  if (error) return <p>{error}</p>;
+
   return (
-    <form>
-      <div>
-        <label>Main Image</label>
+    <div>
+      <div className="mb-4">
+        <div className="font-bold mb-2">Main Image</div>
+        <figure>
+          <img
+            src={`/api/boats/${boat.id}/main-image?random=${randomData}`}
+            alt={boat.tittle}
+            className="max-w-64 object-cover"
+          />
+        </figure>
+
         <input
           type="file"
-          onChange={(e) => setImagen(e.target.files?.[0] || null)}
+          className="my-2 bg-base-300 p-2 text-sm cursor-pointer"
+          onChange={(e) => updateMainImage(e.target.files?.[0])}
         />
       </div>
-      <div>
-        <label>Detail Images</label>
-        <input
-          type="file"
-          multiple
-          onChange={(e) => setDetailImages(Array.from(e.target.files || []))}
-        />
+      <div className="grid grid-cols-4 gap-2">
+        {[1, 2, 3, 4, 5, 6].map((n) => {
+          return (
+            <div className="mb-4">
+              <div className="font-bold mb-2">Detail Image {n}</div>
+              <figure>
+                <img
+                  src={`/api/boats/${boat.id}/detail-image/${n}?random=${randomData}`}
+                  alt={boat.tittle}
+                  className="max-w-64 object-cover"
+                />
+              </figure>
+
+              <input
+                type="file"
+                className="my-2 bg-base-300 p-2 text-sm cursor-pointer"
+                onChange={(e) => uploadDetailImages(n, e.target.files?.[0])}
+              />
+            </div>
+          );
+        })}
       </div>
-      <button type="submit" className="btn btn-primary w-full">
-        Update Boat
-      </button>
-    </form>
+    </div>
   );
 };

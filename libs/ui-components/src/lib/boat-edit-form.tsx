@@ -51,7 +51,7 @@ export const BoatEditForm: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get<Boat>(`http://localhost:4000/api/boats/${boatId}`)
+      .get<Boat>(`/api/boats/${boatId}`)
       .then((res) => setBoat(res.data))
       .catch(console.error);
   }, [boatId]);

@@ -87,8 +87,7 @@ export const BoatCharsSection: React.FC<{
 
   return (
     <form className="p-4 space-y-4" onSubmit={handleSubmit}>
-      <div className="space-y-2">
-        <label className="font-semibold">Características</label>
+      <div className="space-y-2 mb-6">
         {boat.caracteristicas.map((c, i) => (
           <div key={i} className="flex space-x-2">
             <input

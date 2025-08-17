@@ -38,11 +38,9 @@ export const BoatGeneralSection: React.FC<{
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const onChange = (field: string, value: string) => {
     if (!boat) return;
-    setBoat({ ...boat, [e.target.name]: e.target.value });
+    setBoat({ ...boat, [field]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,48 +68,134 @@ export const BoatGeneralSection: React.FC<{
 
   return (
     <form className="p-4 space-y-4" onSubmit={handleSubmit}>
-      {Object.keys(boat).map((key) => {
-        if (
-          [
-            'id',
-            'imagen',
-            'detailImg1',
-            'detailImg2',
-            'detailImg3',
-            'detailImg4',
-            'detailImg5',
-            'detailImg6',
-            'caracteristicas',
-          ].includes(key)
-        )
-          return null;
-        return (
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">{key}</legend>
-            {key === 'descripcion' ? (
-              <textarea
-                key={key}
-                rows={6}
-                name={key}
-                value={(boat as any)[key]}
-                onChange={handleChange}
-                placeholder={key}
-                className="textarea textarea-bordered w-full"
-              />
-            ) : (
-              <input
-                key={key}
-                type="text"
-                name={key}
-                value={(boat as any)[key]}
-                onChange={handleChange}
-                placeholder={key}
-                className="input input-bordered w-full"
-              />
-            )}
-          </fieldset>
-        );
-      })}
+      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+        <h2 className="card-title">Basic Information</h2>
+        <label className="form-control">
+          <div className="label-text">Title</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.tittle}
+            onChange={(e) => onChange('tittle', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Value</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.value}
+            onChange={(e) => onChange('value', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Year</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.año}
+            onChange={(e) => onChange('año', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Brand</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.marca}
+            onChange={(e) => onChange('marca', e.target.value)}
+          />
+        </label>
+      </section>
+
+      {/* Engine Section */}
+      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+        <h2 className="card-title">Engine</h2>
+        <label className="form-control">
+          <div className="label-text">Motor Model</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.modeloMotor}
+            onChange={(e) => onChange('modeloMotor', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Fuel Type</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.tipoDeCombustible}
+            onChange={(e) => onChange('tipoDeCombustible', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Engine Hours</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.horasDeUso}
+            onChange={(e) => onChange('horasDeUso', e.target.value)}
+          />
+        </label>
+      </section>
+
+      {/* Size & Hull */}
+      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+        <h2 className="card-title">Size & Hull</h2>
+        <label className="form-control">
+          <div className="label-text">Length</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.largo}
+            onChange={(e) => onChange('largo', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Hull Material</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.materialCasco}
+            onChange={(e) => onChange('materialCasco', e.target.value)}
+          />
+        </label>
+      </section>
+
+      {/* Capacity */}
+      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+        <h2 className="card-title">Capacity</h2>
+        <label className="form-control">
+          <div className="label-text">Persons</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.personas}
+            onChange={(e) => onChange('personas', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Passengers</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.pasajeros}
+            onChange={(e) => onChange('pasajeros', e.target.value)}
+          />
+        </label>
+        <label className="form-control">
+          <div className="label-text">Load Capacity</div>
+          <input
+            className="input input-bordered w-full"
+            value={boat.Carga}
+            onChange={(e) => onChange('Carga', e.target.value)}
+          />
+        </label>
+      </section>
+
+      {/* Description */}
+      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+        <h2 className="card-title">Description & Features</h2>
+        <label className="form-control">
+          <div className="label-text">Description</div>
+          <textarea
+            className="textarea textarea-bordered w-full "
+            rows={6}
+            value={boat.descripcion}
+            onChange={(e) => onChange('descripcion', e.target.value)}
+          />
+        </label>
+      </section>
       <button type="submit" className="btn btn-primary w-full">
         Update Boat
       </button>

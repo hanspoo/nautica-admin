@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
+import fs from 'fs';
 import express, { Request, Response } from 'express';
 import multer, { File as MulterFile } from 'multer';
 import cors from 'cors';
-import { PrismaClient } from '@prisma/client';
+import { Boat, PrismaClient } from '@prisma/client';
 import path from 'path';
 import { cloneBoat, deleteBoat, getBoatById } from './services/boatService';
 
@@ -23,18 +24,87 @@ app.use((req, res, next) => {
 
 app.use(express.static(process.env.IMAGES_DIR || '/static-images'));
 
-const target = process.env.UPLOAD_FOLDER || path.join(__dirname, '../uploads');
-// File upload setup
+const uploadDir =
+  process.env.UPLOAD_FOLDER || path.join(__dirname, '../../uploads/boats');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
+app.use(express.static(uploadDir));
+
+// Multer storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, target),
-  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname),
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `boat_${Date.now()}${ext}`);
+  },
 });
+
 const upload = multer({ storage });
+
+app.post(
+  '/api/boats/:id/upload-main-image',
+  upload.single('image'),
+  async (req: any, res) => {
+    try {
+      const boatId = req.params.id;
+      const file = req.file;
+
+      if (!file) return res.status(400).json({ message: 'No file uploaded' });
+
+      const updatedBoat = await prisma.boat.update({
+        where: { id: boatId },
+        data: { imagen: `${file.filename}` },
+      });
+
+      res.json(updatedBoat);
+    } catch (error) {
+      res.status(500).json({ message: 'Upload failed', error });
+    }
+  }
+);
+app.post(
+  '/api/boats/:id/upload-detail-image/:n',
+  upload.single('image'),
+  async (req: any, res) => {
+    try {
+      const boatId = req.params.id;
+      const n = req.params.n;
+      const file = req.file;
+
+      if (!file) return res.status(400).json({ message: 'No file uploaded' });
+      const field = `detailImg${n}` as keyof Boat;
+
+      const updatedBoat = await prisma.boat.update({
+        where: { id: boatId },
+        data: { [field]: `${file.filename}` },
+      });
+
+      res.json(updatedBoat);
+    } catch (error) {
+      res.status(500).json({ message: 'Upload failed', error });
+    }
+  }
+);
 
 // Routes
 app.get('/api/boats', async (req, res) => {
   const boats = await prisma.boat.findMany();
   res.json(boats);
+});
+app.get('/api/boats/:id/main-image', async (req, res) => {
+  const { id } = req.params;
+
+  const boats = await getBoatById(id);
+  res.sendFile(`${uploadDir}/${boats.imagen}`);
+});
+app.get('/api/boats/:id/detail-image/:n', async (req, res) => {
+  const { id, n } = req.params;
+
+  const boats = await getBoatById(id);
+  const field = `detailImg${n}` as keyof Boat;
+  res.sendFile(`${uploadDir}/${boats[field]}`);
 });
 
 app.post('/api/boats/:id/clone', async (req, res) => {
