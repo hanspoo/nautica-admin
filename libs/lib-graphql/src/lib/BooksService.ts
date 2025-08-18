@@ -1,5 +1,5 @@
-import { Book } from '@nx-oidc-starter/api';
-import { prisma } from '@nx-oidc-starter/lib-prisma';
+import { Book } from '@nautica/api';
+import { prisma } from '@nautica/lib-prisma';
 import { BookDAO } from '@prisma/client';
 
 export class BooksService {

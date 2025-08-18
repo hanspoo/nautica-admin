@@ -1,3 +1,5 @@
+export { GenBoatsJson } from './lib/gen-boats-json';
+
 export { EditBoatFormLuna } from './lib/edit-form-luna';
 
 export { BoatEditForm } from './lib/boat-edit-form';

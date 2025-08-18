@@ -1,4 +1,4 @@
-import { JWTValidator } from '@nx-oidc-starter/auth';
+import { JWTValidator } from '@nautica/auth';
 import { NextFunction, Request, Response } from 'express';
 
 export const authMdw = async (

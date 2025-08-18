@@ -113,7 +113,7 @@ export const BoatPhotosSection: React.FC<{
       <div className="grid md:grid-cols-4 gap-2">
         {[1, 2, 3, 4, 5, 6].map((n) => {
           return (
-            <div className="mb-4">
+            <div className="mb-4" key={n}>
               <div className="font-bold mb-2">Detail Image {n}</div>
               <figure>
                 <img

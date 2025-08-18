@@ -1,4 +1,4 @@
-import { Planet } from '@nx-oidc-starter/api';
+import { Planet } from '@nautica/api';
 import { BooksService } from './BooksService';
 import { PlanetsService } from './PlanetsService';
 

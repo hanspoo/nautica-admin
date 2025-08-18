@@ -1,4 +1,4 @@
-import { Planet } from '@nx-oidc-starter/api';
+import { Planet } from '@nautica/api';
 
 export function PlanetComponent({
   planet: { name, diameter, description },

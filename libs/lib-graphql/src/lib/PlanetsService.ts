@@ -1,5 +1,5 @@
-import { Planet } from '@nx-oidc-starter/api';
-import { prisma } from '@nx-oidc-starter/lib-prisma';
+import { Planet } from '@nautica/api';
+import { prisma } from '@nautica/lib-prisma';
 import { PlanetDAO } from '@prisma/client';
 
 export class PlanetsService {

@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { Planet } from '@nx-oidc-starter/api';
+import { Planet } from '@nautica/api';
 import { PlanetComponent } from './planet-component';
 
 const GET_PLANET_PHOTO = gql`

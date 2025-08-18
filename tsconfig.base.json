@@ -16,11 +16,11 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-oidc-starter/api": ["libs/api/src/index.ts"],
-      "@nx-oidc-starter/auth": ["libs/auth/src/index.ts"],
-      "@nx-oidc-starter/lib-graphql": ["libs/lib-graphql/src/index.ts"],
-      "@nx-oidc-starter/lib-prisma": ["libs/lib-prisma/src/index.ts"],
-      "@nx-oidc-starter/ui-components": ["libs/ui-components/src/index.ts"]
+      "@nautica/api": ["libs/api/src/index.ts"],
+      "@nautica/auth": ["libs/auth/src/index.ts"],
+      "@nautica/lib-graphql": ["libs/lib-graphql/src/index.ts"],
+      "@nautica/lib-prisma": ["libs/lib-prisma/src/index.ts"],
+      "@nautica/ui-components": ["libs/ui-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

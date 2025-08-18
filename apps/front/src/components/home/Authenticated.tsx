@@ -1,7 +1,7 @@
 import { useAuth } from 'react-oidc-context';
 import { useRef } from 'react';
 
-import { Bars4Icon, HomeIcon } from '@heroicons/react/24/solid';
+import { Bars4Icon, Cog6ToothIcon, HomeIcon } from '@heroicons/react/24/solid';
 import { UserDropdown } from './user-dropdown';
 
 import { AuthenticatedContent } from './AuthenticatedContent';
@@ -79,6 +79,12 @@ export function Authenticated() {
             <Link to="/boats" className="flex">
               <HomeIcon className="h-4" />
               Boats Catalog
+            </Link>
+          </li>
+          <li onClick={closeDrawer}>
+            <Link to="/boats/gen-json" className="flex">
+              <Cog6ToothIcon className="h-4" />
+              Generar boats.json
             </Link>
           </li>
         </ul>

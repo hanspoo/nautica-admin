@@ -1,5 +1,5 @@
 {
-  "name": "@nx-oidc-starter/source",
+  "name": "@nautica/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {

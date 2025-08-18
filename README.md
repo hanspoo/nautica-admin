@@ -37,8 +37,8 @@ Grapqhl and REST ready.
 ## Quick start
 
 ```
-git clone https://github.com/hanspoo/nx-oidc-starter
-cd nx-oidc-starter/
+git clone https://github.com/hanspoo/nautica
+cd nautica/
 npm install
 
 npm run generate

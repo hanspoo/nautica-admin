@@ -5,7 +5,8 @@ import multer, { File as MulterFile } from 'multer';
 import cors from 'cors';
 import { Boat, PrismaClient } from '@prisma/client';
 import path from 'path';
-import { cloneBoat, deleteBoat, getBoatById } from './services/boatService';
+import { cloneBoat, deleteBoat, getBoatById } from '@nautica/lib-prisma';
+import { BoatsJsonGenerator } from '@nautica/lib-prisma';
 
 dotenv.config();
 
@@ -322,6 +323,11 @@ app.put(
     }
   }
 );
+
+app.get('/api/boats/gen-json', (req, res) => {
+  const json = new BoatsJsonGenerator().generate();
+  res.json(json);
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

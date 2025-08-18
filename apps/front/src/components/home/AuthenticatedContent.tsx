@@ -2,9 +2,10 @@ import { useAuth } from 'react-oidc-context';
 import {
   BoatEditForm,
   Boats,
+  GenBoatsJson,
   NewBoat,
   Planets,
-} from '@nx-oidc-starter/ui-components';
+} from '@nautica/ui-components';
 import { Routes, Route } from 'react-router-dom';
 import { PleaseLogin } from '../PleaseLogin';
 import { DashboardContainer } from './DashboardContainer';
@@ -25,6 +26,7 @@ export function AuthenticatedContent() {
         ></Route>
         <Route path="/boats/new" element={<NewBoat />}></Route>
         <Route path="/boats/edit/:boatId" element={<BoatEditForm />}></Route>
+        <Route path="/boats/gen-json" element={<GenBoatsJson />}></Route>
         <Route path="/boats" element={<Boats />}></Route>
         <Route
           path="/config/humans"
