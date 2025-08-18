@@ -53,7 +53,7 @@ const BoatsList: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
               <div className="flex items-center gap-4">
                 <figure>
                   <img
-                    src={`http://localhost:4000${boat.imagen}`}
+                    src={`/api/boats/${boat.id}/main-image`}
                     alt={boat.tittle}
                     className="h-12 w-full object-cover"
                   />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowUturnLeftIcon } from '@heroicons/react/20/solid';
+import { ArrowUturnLeftIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { BoatGeneralSection } from './boat-general-section';
 import { BoatPhotosSection } from './boat-photos-section';
 import { BoatCharsSection } from './boat-chars-section';
@@ -105,7 +105,7 @@ export const BoatEditForm: React.FC = () => {
             Clone
           </button>
           <button onClick={deleteBoat} className="btn">
-            Delete
+            <TrashIcon className="h-4 w-4" />
           </button>
         </div>
       </div>

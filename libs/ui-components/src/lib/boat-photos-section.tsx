@@ -41,7 +41,8 @@ export const BoatPhotosSection: React.FC<{
   const [error, setError] = useState('');
   const [randomData, setRandomData] = useState(new Date().getTime());
 
-  if (loading) return <p>Cloning...</p>;
+  if (loading)
+    return <span className="m-4 loading loading-spinner loading-sm"></span>;
   if (error) return <p>{error}</p>;
 
   const updateMainImage = (file?: File) => {
@@ -53,7 +54,7 @@ export const BoatPhotosSection: React.FC<{
     formData.append('image', file);
 
     axios
-      .post<Boat>(`/api/boats/${boat.id}/upload-main-image`, formData, {
+      .post<Boat>(`/api/boats/${boat.id}/main-image`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => {
@@ -75,7 +76,7 @@ export const BoatPhotosSection: React.FC<{
     formData.append('image', file);
 
     axios
-      .post<Boat>(`/api/boats/${boat.id}/upload-detail-image/${n}`, formData, {
+      .post<Boat>(`/api/boats/${boat.id}/detail-image/${n}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => {
@@ -99,7 +100,7 @@ export const BoatPhotosSection: React.FC<{
           <img
             src={`/api/boats/${boat.id}/main-image?random=${randomData}`}
             alt={boat.tittle}
-            className="max-w-64 object-cover"
+            className="md:max-w-64 object-cover"
           />
         </figure>
 
@@ -109,7 +110,7 @@ export const BoatPhotosSection: React.FC<{
           onChange={(e) => updateMainImage(e.target.files?.[0])}
         />
       </div>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid md:grid-cols-4 gap-2">
         {[1, 2, 3, 4, 5, 6].map((n) => {
           return (
             <div className="mb-4">
@@ -118,7 +119,7 @@ export const BoatPhotosSection: React.FC<{
                 <img
                   src={`/api/boats/${boat.id}/detail-image/${n}?random=${randomData}`}
                   alt={boat.tittle}
-                  className="max-w-64 object-cover"
+                  className="md:max-w-64 object-cover"
                 />
               </figure>
 

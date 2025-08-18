@@ -76,30 +76,10 @@ export function Authenticated() {
             </div>
           </li>
           <li onClick={closeDrawer}>
-            <Link to="/" className="flex">
+            <Link to="/boats" className="flex">
               <HomeIcon className="h-4" />
-              Home
+              Boats Catalog
             </Link>
-          </li>
-
-          <li>
-            <details open>
-              <summary>Configuration</summary>
-              <ul onClick={closeDrawer}>
-                <li>
-                  <Link to="/planets">Planets</Link>
-                </li>
-                <li>
-                  <Link to="/config/the-moon">The Moon</Link>
-                </li>
-                <li>
-                  <Link to="/config/humans">Humans</Link>
-                </li>
-                <li>
-                  <Link to="/boats">Boats</Link>
-                </li>
-              </ul>
-            </details>
           </li>
         </ul>
       </div>

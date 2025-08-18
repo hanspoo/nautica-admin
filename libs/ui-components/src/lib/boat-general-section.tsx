@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
 
 interface Boat {
   id: string;
@@ -36,6 +37,7 @@ export const BoatGeneralSection: React.FC<{
   setBoat: (boat: Boat) => void;
 }> = ({ boat, setBoat }) => {
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
   const onChange = (field: string, value: string) => {
@@ -54,21 +56,47 @@ export const BoatGeneralSection: React.FC<{
       else if (typeof value !== 'undefined') data.append(key, value as string);
     });
 
-    await axios.put(`http://localhost:4000/api/boats/${boat.id}`, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    const response = await axios.put(
+      `http://localhost:4000/api/boats/${boat.id}`,
+      data,
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }
+    );
 
-    alert('Boat updated!');
+    setBoat(response.data);
+
+    setLoading(false);
+    setSuccess(true);
   };
 
-  if (!boat) return <p>Loading...</p>;
+  if (!boat)
+    return <span className="loading loading-spinner loading-sm"></span>;
 
-  if (loading) return <p>Cloning...</p>;
+  if (loading)
+    return <span className="loading loading-spinner loading-sm"></span>;
   if (error) return <p>{error}</p>;
 
+  if (success)
+    return (
+      <div role="alert" className="alert alert-success mt-4">
+        <InformationCircleIcon className="w-5" />
+        <span>Boat updated</span>
+        <button
+          onClick={() => {
+            setLoading(false);
+            setSuccess(false);
+          }}
+          className="btn btn-primary"
+        >
+          Continue
+        </button>
+      </div>
+    );
+
   return (
-    <form className="p-4 space-y-4" onSubmit={handleSubmit}>
-      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <section className="card bg-base-100 shadow-md py-4 space-y-3">
         <h2 className="card-title">Basic Information</h2>
         <label className="form-control">
           <div className="label-text">Title</div>
@@ -105,7 +133,7 @@ export const BoatGeneralSection: React.FC<{
       </section>
 
       {/* Engine Section */}
-      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+      <section className="card bg-base-100 shadow-md py-4 space-y-3">
         <h2 className="card-title">Engine</h2>
         <label className="form-control">
           <div className="label-text">Motor Model</div>
@@ -134,7 +162,7 @@ export const BoatGeneralSection: React.FC<{
       </section>
 
       {/* Size & Hull */}
-      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+      <section className="card bg-base-100 shadow-md py-4 space-y-3">
         <h2 className="card-title">Size & Hull</h2>
         <label className="form-control">
           <div className="label-text">Length</div>
@@ -155,7 +183,7 @@ export const BoatGeneralSection: React.FC<{
       </section>
 
       {/* Capacity */}
-      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+      <section className="card bg-base-100 shadow-md py-4 space-y-3">
         <h2 className="card-title">Capacity</h2>
         <label className="form-control">
           <div className="label-text">Persons</div>
@@ -184,7 +212,7 @@ export const BoatGeneralSection: React.FC<{
       </section>
 
       {/* Description */}
-      <section className="card bg-base-100 shadow-md p-4 space-y-3">
+      <section className="card bg-base-100 shadow-md py-4 space-y-3">
         <h2 className="card-title">Description & Features</h2>
         <label className="form-control">
           <div className="label-text">Description</div>

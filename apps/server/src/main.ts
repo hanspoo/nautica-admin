@@ -44,14 +44,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post(
-  '/api/boats/:id/upload-main-image',
+  '/api/boats/:id/main-image',
   upload.single('image'),
   async (req: any, res) => {
     try {
       const boatId = req.params.id;
-      const file = req.file;
-
+      const file: MulterFile = req.file;
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
+
+      const dir = `${process.env.IMAGES_DIR}/${boatId}`;
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+      fs.copyFileSync(
+        file.path,
+        `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`
+      );
 
       const updatedBoat = await prisma.boat.update({
         where: { id: boatId },
@@ -65,7 +71,7 @@ app.post(
   }
 );
 app.post(
-  '/api/boats/:id/upload-detail-image/:n',
+  '/api/boats/:id/detail-image/:n',
   upload.single('image'),
   async (req: any, res) => {
     try {
@@ -74,6 +80,14 @@ app.post(
       const file = req.file;
 
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
+
+      const dir = `${process.env.IMAGES_DIR}/${boatId}`;
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+      fs.copyFileSync(
+        file.path,
+        `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`
+      );
+
       const field = `detailImg${n}` as keyof Boat;
 
       const updatedBoat = await prisma.boat.update({
@@ -96,15 +110,17 @@ app.get('/api/boats', async (req, res) => {
 app.get('/api/boats/:id/main-image', async (req, res) => {
   const { id } = req.params;
 
-  const boats = await getBoatById(id);
-  res.sendFile(`${uploadDir}/${boats.imagen}`);
+  const boat = await getBoatById(id);
+  const file = `${process.env.IMAGES_DIR}/${boat.id}/${boat.imagen}`;
+
+  res.sendFile(file);
 });
 app.get('/api/boats/:id/detail-image/:n', async (req, res) => {
   const { id, n } = req.params;
 
-  const boats = await getBoatById(id);
+  const boat = await getBoatById(id);
   const field = `detailImg${n}` as keyof Boat;
-  res.sendFile(`${uploadDir}/${boats[field]}`);
+  res.sendFile(`${process.env.IMAGES_DIR}/${boat.id}/${boat[field]}`);
 });
 
 app.post('/api/boats/:id/clone', async (req, res) => {

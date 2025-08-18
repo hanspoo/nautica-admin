@@ -39,7 +39,7 @@ const BoatsGrid: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
           <Link to={`/boats/edit/${boat.id}`} key={boat.id}>
             <figure>
               <img
-                src={`http://localhost:4000${boat.imagen}`}
+                src={`/api/boats/${boat.id}/main-image`}
                 alt={boat.tittle}
                 className="h-48 w-full object-cover"
               />

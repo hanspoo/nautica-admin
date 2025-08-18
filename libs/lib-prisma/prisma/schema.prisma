@@ -1,6 +1,6 @@
 // prisma/schema.prisma
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -9,7 +9,7 @@ generator client {
 }
 
 model Boat {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                String   @id @default(uuid())
   imagen            String
   detailImg1        String?
   detailImg2        String?
@@ -35,4 +35,6 @@ model Boat {
   horasDeUso        String
   descripcion       String
   caracteristicas   String[] // dynamic features list
+
+  @@map("boat")
 }
