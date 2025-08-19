@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+dotenv.config();
 import fs from 'fs';
 import express, { Request, Response } from 'express';
 import multer, { File as MulterFile } from 'multer';
@@ -13,8 +14,6 @@ import {
 } from '@nautica/lib-prisma';
 import { BoatsJsonGenerator } from '@nautica/lib-prisma';
 import { authMdw } from './authMdw';
-
-dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
