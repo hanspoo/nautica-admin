@@ -16,4 +16,4 @@ COPY --from=0 /app/node_modules  /dist/node_modules
 
 WORKDIR /dist
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "pushstart"]
