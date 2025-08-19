@@ -9,6 +9,7 @@
     "start:server": "nx serve server",
     "start:front": "nx serve front",
     "push": "nx prisma-push lib-prisma",
+    "start": "cd apps/api && node main.js",
     "build": "nx build server && nx build front",
     "codegen": "graphql-codegen --config libs/lib-graphql/codegen.ts"
   },
