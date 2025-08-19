@@ -1,39 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowUturnLeftIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { BoatGeneralSection } from './boat-general-section';
 import { BoatPhotosSection } from './boat-photos-section';
 import { BoatCharsSection } from './boat-chars-section';
-
-interface Boat {
-  id: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-}
+import { useAxios } from './useAxios';
+import { BoatAPI } from '@nautica/api';
 
 enum Section {
   GENERAL,
@@ -42,16 +14,17 @@ enum Section {
 }
 
 export const BoatEditForm: React.FC = () => {
+  const axios = useAxios();
   const [section, setSection] = useState(Section.GENERAL);
   const { boatId } = useParams();
-  const [boat, setBoat] = useState<Boat | null>(null);
+  const [boat, setBoat] = useState<BoatAPI | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get<Boat>(`/api/boats/${boatId}`)
+      .get<BoatAPI>(`/api/boats/${boatId}`)
       .then((res) => setBoat(res.data))
       .catch(console.error);
   }, [boatId]);

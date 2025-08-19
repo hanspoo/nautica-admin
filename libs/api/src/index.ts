@@ -1,2 +1,1 @@
-export * from './lib/api';
-export * from './lib/generated';
+export * from './lib/BoatAPI';

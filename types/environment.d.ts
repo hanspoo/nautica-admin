@@ -8,6 +8,7 @@ declare global {
       JWKS_SUFFIX: string;
       DEBUG: string;
       AUDIENCE: string;
+      VITE_NAUTICA_SITE: string;
     }
   }
 }

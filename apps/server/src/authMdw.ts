@@ -7,7 +7,6 @@ export const authMdw = async (
   next: NextFunction
 ) => {
   const hostName = req.headers.host;
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
   if (!hostName) {
     throw Error('Hostname no está definido');

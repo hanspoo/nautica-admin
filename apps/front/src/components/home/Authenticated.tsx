@@ -84,7 +84,7 @@ export function Authenticated() {
           <li onClick={closeDrawer}>
             <Link to="/boats/gen-json" className="flex">
               <Cog6ToothIcon className="h-4" />
-              Generar boats.json
+              Actualizar boats.json
             </Link>
           </li>
         </ul>

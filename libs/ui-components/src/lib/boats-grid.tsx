@@ -1,37 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-interface Boat {
-  id: string;
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-}
+import { BoatAPI } from '@nautica/api';
 
-const BoatsGrid: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
+const BoatsGrid: React.FC<{ boats: Array<BoatAPI> }> = ({ boats }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
       {boats.map((boat) => (
@@ -39,7 +11,7 @@ const BoatsGrid: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
           <Link to={`/boats/edit/${boat.id}`} key={boat.id}>
             <figure>
               <img
-                src={`/api/boats/${boat.id}/main-image`}
+                src={`/api/images/${boat.id}/main-image`}
                 alt={boat.tittle}
                 className="h-48 w-full object-cover"
               />

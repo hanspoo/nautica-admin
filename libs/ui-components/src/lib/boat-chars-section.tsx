@@ -1,45 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 
-interface Boat {
-  id: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-}
+import { useAxios } from './useAxios';
+import { BoatAPI } from '@nautica/api';
 
 export const BoatCharsSection: React.FC<{
-  boat: Boat;
-  setBoat: (boat: Boat) => void;
+  boat: BoatAPI;
+  setBoat: (boat: BoatAPI) => void;
 }> = ({ boat, setBoat }) => {
+  const axios = useAxios();
   const [imagen, setImagen] = useState<File | null>(null);
   const [detailImages, setDetailImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   const handleFeatureChange = (index: number, value: string) => {
     const updated = [...boat.caracteristicas];
@@ -73,7 +45,7 @@ export const BoatCharsSection: React.FC<{
     if (imagen) data.append('imagen', imagen);
     detailImages.forEach((img) => data.append('detailImages', img));
 
-    await axios.put(`http://localhost:4000/api/boats/${boat.id}`, data, {
+    await axios.put(`/api/boats/${boat.id}`, data, {
       headers: { 'Content-Type': 'muBoatCharsSectionltipart/form-data' },
     });
 

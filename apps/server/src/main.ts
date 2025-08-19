@@ -5,18 +5,29 @@ import multer, { File as MulterFile } from 'multer';
 import cors from 'cors';
 import { Boat, PrismaClient } from '@prisma/client';
 import path from 'path';
-import { cloneBoat, deleteBoat, getBoatById } from '@nautica/lib-prisma';
+import {
+  cloneBoat,
+  deleteBoat,
+  getBoatById,
+  initBoatsDB,
+} from '@nautica/lib-prisma';
 import { BoatsJsonGenerator } from '@nautica/lib-prisma';
+import { authMdw } from './authMdw';
 
 dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
+initBoatsDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use(
+  '/uploads',
+  authMdw,
+  express.static(path.join(__dirname, '../uploads'))
+);
 app.use('/', express.static('../front'));
 
 app.use((req, res, next) => {
@@ -24,7 +35,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(process.env.IMAGES_DIR || '/static-images'));
+app.use('/api/boats', authMdw);
+
+//app.use(express.static(process.env.IMAGES_DIR || '/static-images'));
 
 const uploadDir =
   process.env.UPLOAD_FOLDER || path.join(__dirname, '../../uploads/boats');
@@ -109,7 +122,7 @@ app.get('/api/boats', async (req, res) => {
   const boats = await prisma.boat.findMany();
   res.json(boats);
 });
-app.get('/api/boats/:id/main-image', async (req, res) => {
+app.get('/api/images/:id/main-image', async (req, res) => {
   const { id } = req.params;
 
   const boat = await getBoatById(id);
@@ -117,7 +130,7 @@ app.get('/api/boats/:id/main-image', async (req, res) => {
 
   res.sendFile(file);
 });
-app.get('/api/boats/:id/detail-image/:n', async (req, res) => {
+app.get('/api/images/:id/detail-image/:n', async (req, res) => {
   const { id, n } = req.params;
 
   const boat = await getBoatById(id);
@@ -325,9 +338,9 @@ app.put(
   }
 );
 
-app.get('/api/boats/gen-json', (req, res) => {
-  const json = new BoatsJsonGenerator().generate();
-  res.json(json);
+app.post('/api/boats/sync', (req, res) => {
+  new BoatsJsonGenerator().generate();
+  res.json({ message: 'Ok' });
 });
 
 const PORT = process.env.PORT || 4000;

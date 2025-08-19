@@ -4,7 +4,6 @@ import {
   Boats,
   GenBoatsJson,
   NewBoat,
-  Planets,
 } from '@nautica/ui-components';
 import { Routes, Route } from 'react-router-dom';
 import { PleaseLogin } from '../PleaseLogin';
@@ -19,7 +18,7 @@ export function AuthenticatedContent() {
     <div className="p-2 px-3 mt-6">
       <Routes>
         <Route path="/*" element={<DashboardContainer />}></Route>
-        <Route path="/planets" element={<Planets />}></Route>
+
         <Route
           path="/config/the-moon"
           element={<div className="text-xl font-bold">The Moon</div>}

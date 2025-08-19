@@ -25,6 +25,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../../types/*.d.ts"
+    "../../types/*.d.ts",
+    "../api/src/lib/BoatAPI.ts"
   ]
 }

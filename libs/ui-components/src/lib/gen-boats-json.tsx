@@ -6,12 +6,16 @@ export function GenBoatsJson() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Generar boats.json</h1>
+      <h1 className="text-2xl font-bold mb-4">Actualizar boats.json</h1>
 
-      <p className="mb-4">
-        El JSON generado debe ser colocado como boats.json en el proyecto
-        NauticaCalderon en "src/data/boats.json".
-      </p>
+      <div className="mb-6">
+        <p className="mb-2">
+          Con la información de la base de datos se actualizará el archivo:
+        </p>
+        <div className="mb-4">
+          <b>{import.meta.env.VITE_NAUTICA_SITE + '/src/data/boats.json'}</b>
+        </div>
+      </div>
       {generando ? (
         <GenerandoBoats />
       ) : (

@@ -1,38 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import BoatsGrid from './boats-grid';
 import BoatsList from './boats-list';
-import { ListBulletIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
+import {
+  ExclamationTriangleIcon,
+  ListBulletIcon,
+  Squares2X2Icon,
+} from '@heroicons/react/20/solid';
+import { useAxios } from './useAxios';
 
-interface Boat {
-  id: string;
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-}
+import { BoatAPI } from '@nautica/api';
 
 enum ViewType {
   LIST,
@@ -40,17 +17,19 @@ enum ViewType {
 }
 
 const BoatsMain: React.FC = () => {
-  const [boats, setBoats] = useState<Boat[]>([]);
+  const axios = useAxios();
+  const [boats, setBoats] = useState<BoatAPI[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   const [viewType, setViewType] = useState(ViewType.LIST);
 
   useEffect(() => {
     const fetchBoats = async () => {
       try {
-        const res = await axios.get<Boat[]>('/api/boats');
+        const res = await axios.get<BoatAPI[]>('/api/boats');
         setBoats(res.data);
-      } catch (err) {
-        console.error(err);
+      } catch (err: any) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -60,6 +39,13 @@ const BoatsMain: React.FC = () => {
   }, []);
 
   if (loading) return <p className="text-center mt-4">Loading boats...</p>;
+  if (error)
+    return (
+      <div role="alert" className="alert alert-error">
+        <ExclamationTriangleIcon />
+        <span>{error}.</span>
+      </div>
+    );
   if (!boats.length)
     return <p className="text-center mt-4">No boats available.</p>;
 

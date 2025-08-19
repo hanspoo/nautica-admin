@@ -1,41 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+
 import { InformationCircleIcon } from '@heroicons/react/20/solid';
+import { useAxios } from './useAxios';
 
-interface Boat {
-  id: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-}
-
+import { BoatAPI } from '@nautica/api';
 export const BoatGeneralSection: React.FC<{
-  boat: Boat;
-  setBoat: (boat: Boat) => void;
+  boat: BoatAPI;
+  setBoat: (boat: BoatAPI) => void;
 }> = ({ boat, setBoat }) => {
+  const axios = useAxios();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -56,13 +29,9 @@ export const BoatGeneralSection: React.FC<{
       else if (typeof value !== 'undefined') data.append(key, value as string);
     });
 
-    const response = await axios.put(
-      `http://localhost:4000/api/boats/${boat.id}`,
-      data,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
-    );
+    const response = await axios.put(`/api/boats/${boat.id}`, data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
 
     setBoat(response.data);
 

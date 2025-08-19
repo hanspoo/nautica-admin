@@ -1,8 +1,9 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useAxios } from './useAxios';
 
 export function GenerandoBoats() {
+  const axios = useAxios();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [data, setData] = useState<string>();
@@ -10,7 +11,7 @@ export function GenerandoBoats() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/boats`)
+      .post(`/api/boats/sync`)
       .then((response) => {
         setData(response.data);
         setLoading(false);
@@ -34,22 +35,22 @@ export function GenerandoBoats() {
 
   return (
     <div>
-      <textarea rows={20} className="textarea w-full mb-6">
-        {JSON.stringify(data)}
-      </textarea>
-
-      <p className="mb-2">
-        Las imágenes están en: <b>{import.meta.env.VITE_IMAGES_DIR}</b>
-      </p>
-      <p className="mb-2">
-        El contenido de esta carpeta debe ser copiado a la carpeta{' '}
-        <b>public/Imgs/botes</b> del proyecto de Náutica Calderon.
-      </p>
-      <p className="mb-2">Ejemplo</p>
-      <b className="mb-2">
-        cp {import.meta.env.VITE_IMAGES_DIR}/*
-        /home/julian/lucas/NauticaCalderon/public/Imgs/botes
-      </b>
+      <div role="alert" className="alert alert-success">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>Se ha actualizado el archivo!</span>
+      </div>
     </div>
   );
 }

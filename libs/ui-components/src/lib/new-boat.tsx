@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUturnLeftIcon } from '@heroicons/react/20/solid';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useAxios } from './useAxios';
 
 interface BoatFormData {
   tittle: string;
@@ -25,6 +25,7 @@ interface BoatFormData {
 }
 
 export const NewBoat: React.FC = () => {
+  const axios = useAxios();
   const [form, setForm] = useState<BoatFormData>({
     tittle: '',
     value: '',
@@ -80,7 +81,7 @@ export const NewBoat: React.FC = () => {
     if (imagen) data.append('imagen', imagen);
     detailImages.forEach((img) => data.append('detailImages', img));
 
-    await axios.post('http://localhost:4000/api/boats', data, {
+    await axios.post('/api/boats', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     alert('Boat created!');

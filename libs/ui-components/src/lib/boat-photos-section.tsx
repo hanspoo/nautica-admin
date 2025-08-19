@@ -1,43 +1,16 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useAxios } from './useAxios';
 
-interface Boat {
-  id: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-}
+import { BoatAPI } from '@nautica/api';
 
 export const BoatPhotosSection: React.FC<{
-  boat: Boat;
-  setBoat: (boat: Boat) => void;
+  boat: BoatAPI;
+  setBoat: (boat: BoatAPI) => void;
 }> = ({ boat, setBoat }) => {
-  const [imagen, setImagen] = useState<File | null>(null);
+  const axios = useAxios();
 
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+
   const [error, setError] = useState('');
   const [randomData, setRandomData] = useState(new Date().getTime());
 
@@ -54,7 +27,7 @@ export const BoatPhotosSection: React.FC<{
     formData.append('image', file);
 
     axios
-      .post<Boat>(`/api/boats/${boat.id}/main-image`, formData, {
+      .post<BoatAPI>(`/api/boats/${boat.id}/main-image`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => {
@@ -76,7 +49,7 @@ export const BoatPhotosSection: React.FC<{
     formData.append('image', file);
 
     axios
-      .post<Boat>(`/api/boats/${boat.id}/detail-image/${n}`, formData, {
+      .post<BoatAPI>(`/api/boats/${boat.id}/detail-image/${n}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => {
@@ -98,7 +71,7 @@ export const BoatPhotosSection: React.FC<{
         <div className="font-bold mb-2">Main Image</div>
         <figure>
           <img
-            src={`/api/boats/${boat.id}/main-image?random=${randomData}`}
+            src={`/api/images/${boat.id}/main-image?random=${randomData}`}
             alt={boat.tittle}
             className="md:max-w-64 object-cover"
           />
@@ -117,7 +90,7 @@ export const BoatPhotosSection: React.FC<{
               <div className="font-bold mb-2">Detail Image {n}</div>
               <figure>
                 <img
-                  src={`/api/boats/${boat.id}/detail-image/${n}?random=${randomData}`}
+                  src={`/api/images/${boat.id}/detail-image/${n}?random=${randomData}`}
                   alt={boat.tittle}
                   className="md:max-w-64 object-cover"
                 />

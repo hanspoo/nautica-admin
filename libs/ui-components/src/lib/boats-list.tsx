@@ -1,42 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  EllipsisVerticalIcon,
-  HeartIcon,
-  MusicalNoteIcon,
-} from '@heroicons/react/20/solid';
+import { BoatAPI } from '@nautica/api';
 
-interface Boat {
-  id: string;
-  imagen: string;
-  detailImg1?: string;
-  detailImg2?: string;
-  detailImg3?: string;
-  detailImg4?: string;
-  detailImg5?: string;
-  detailImg6?: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  caracteristicas: string[];
-}
-
-const BoatsList: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
+const BoatsList: React.FC<{ boats: Array<BoatAPI> }> = ({ boats }) => {
   return (
     <div className="bg-base-200 w-full ">
       <ul className="divide-y divide-base-300">
@@ -53,7 +19,7 @@ const BoatsList: React.FC<{ boats: Array<Boat> }> = ({ boats }) => {
               <div className="flex items-center gap-4">
                 <figure>
                   <img
-                    src={`/api/boats/${boat.id}/main-image`}
+                    src={`/api/images/${boat.id}/main-image`}
                     alt={boat.tittle}
                     className="h-12 w-full object-cover"
                   />

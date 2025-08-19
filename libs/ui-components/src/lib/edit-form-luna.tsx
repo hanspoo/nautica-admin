@@ -1,49 +1,20 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAxios } from './useAxios';
 
-interface Boat {
-  id: string;
-  imagen: string;
-  detailImg1: string;
-  detailImg2: string;
-  detailImg3: string;
-  detailImg4: string;
-  detailImg5: string;
-  detailImg6: string;
-  tittle: string;
-  value: string;
-  duracion: string;
-  personas: string;
-  bedrooms: string;
-  largo: string;
-  info: string;
-  marca: string;
-  materialCasco: string;
-  año: string;
-  modeloMotor: string;
-  Horas: string;
-  Carga: string;
-  pasajeros: string;
-  tipoDeCombustible: string;
-  horasDeUso: string;
-  descripcion: string;
-  carac1: string;
-  carac2: string;
-  carac3: string;
-  carac4: string;
-}
+import { BoatAPI } from '@nautica/api';
 
 export const EditBoatFormLuna: React.FC = () => {
+  const axios = useAxios();
   const { boatId } = useParams();
-  const [boat, setBoat] = useState<Boat | null>(null);
+  const [boat, setBoat] = useState<BoatAPI | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     axios
-      .get<Boat>(`http://localhost:4000/api/boats/${boatId}`)
+      .get<BoatAPI>(`/api/boats/${boatId}`)
       .then((res) => {
         setBoat(res.data);
         setLoading(false);
