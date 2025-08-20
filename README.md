@@ -1,3 +1,8 @@
 # full-stack-starter
 
-run -v /home/lucas/NauticaCalderon/public/Imgs/botes:/data/images -p 4000:4000 --rm nautica-admin
+Considerando que en -env:
+VITE_NAUTICA_SITE=/website
+
+La llamada debe ser:
+
+docker run -v /home/nautica/NauticaCalderon:/website --rm -p 4000:4000 --rm nautica-admin
