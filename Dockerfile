@@ -6,6 +6,7 @@ RUN npm run generate
 RUN npm run build
 RUN npm prune --omit=dev
 COPY .env dist/apps/server
+COPY .env dist
 
 
 FROM node:22-alpine
