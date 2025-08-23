@@ -5,8 +5,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    env_file: ".env"        
-    user: ${UID}:${GID}
+    env_file: '.env'
+    #    user: ${UID}:${GID}
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost/api/hello']
       interval: 15s
@@ -14,7 +14,7 @@ services:
       retries: 3
       start_period: 10s
     volumes:
-      - ${VITE_NAUTICA_SITE}:/website
+      - ${REAL_SITE}:/website
     ports:
       - '4000:4000'
   db:
@@ -35,4 +35,3 @@ services:
       start_period: 15s # give Postgres time to boot before starting checks
 volumes:
   postgres_data:
-
