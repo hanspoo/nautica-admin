@@ -336,7 +336,10 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 function copyImageToFinalDest(boatId: any, file: MulterFile) {
   const dir = `${process.env.IMAGES_DIR}/${boatId}`;
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  if (!fs.existsSync(dir)) {
+    console.log(`Creando carpeta de fotos del bote en: ${dir}`);
+    fs.mkdirSync(dir);
+  }
   const targetName = `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`;
   console.log(`Copiando imagen a ubicación final en: ${targetName}`);
   fs.copyFileSync(file.path, targetName);
