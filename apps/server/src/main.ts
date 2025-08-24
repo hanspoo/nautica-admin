@@ -65,12 +65,7 @@ app.post(
       const file: MulterFile = req.file;
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
 
-      const dir = `${process.env.IMAGES_DIR}/${boatId}`;
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-      fs.copyFileSync(
-        file.path,
-        `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`
-      );
+      copyImageToFinalDest(boatId, file);
 
       const updatedBoat = await prisma.boat.update({
         where: { id: boatId },
@@ -94,12 +89,7 @@ app.post(
 
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
 
-      const dir = `${process.env.IMAGES_DIR}/${boatId}`;
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-      fs.copyFileSync(
-        file.path,
-        `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`
-      );
+      copyImageToFinalDest(boatId, file);
 
       const field = `detailImg${n}` as keyof Boat;
 
@@ -343,3 +333,11 @@ app.post('/api/boats/sync', (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+function copyImageToFinalDest(boatId: any, file: MulterFile) {
+  const dir = `${process.env.IMAGES_DIR}/${boatId}`;
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  const targetName = `${process.env.IMAGES_DIR}/${boatId}/${file.filename}`;
+  console.log(`Copiando imagen a ubicación final en: ${targetName}`);
+  fs.copyFileSync(file.path, targetName);
+}
