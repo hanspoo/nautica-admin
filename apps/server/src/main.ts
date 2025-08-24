@@ -38,8 +38,7 @@ app.use('/api/boats', authMdw);
 
 //app.use(express.static(process.env.IMAGES_DIR || '/static-images'));
 
-const uploadDir =
-  process.env.UPLOAD_FOLDER || path.join(__dirname, '../../uploads/boats');
+const uploadDir = process.env.UPLOAD_FOLDER || '/tmp/boats';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 app.use(express.static(uploadDir));
